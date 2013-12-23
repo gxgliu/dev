@@ -7,7 +7,7 @@ if [ $# != 1 ]; then
 	exit 1
 fi
 
-echo "Hello $USER !"
+echo "Hello $USER!"
 
 exit 0
 
