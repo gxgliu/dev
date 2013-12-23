@@ -7,6 +7,4 @@ int main()
 		putchar(c);
 	}
 	putchar('\n');
-
-	exit(0);
 }

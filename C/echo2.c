@@ -23,6 +23,4 @@ int main(int argc, char *argv[])
 
 	if (nl)
 		putc('\n', stderr);
-
-	exit(0);
 }
