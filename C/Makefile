@@ -1,7 +1,7 @@
 CC = gcc
-CFLAGS = -g
+CFLAGS = -g -O3
 
-all: gets echo2
+all: gets echo2 prime
 
 gets: gets.o
 	$(CC) -o $@ gets.c
@@ -9,5 +9,8 @@ gets: gets.o
 echo2: echo2.o
 	$(CC) -o $@ echo2.c
 
+prime: prime.o
+	$(CC) -o $@ prime.c
+
 clean:
-	/bin/rm *.o gets echo2
+	/bin/rm -f *.o gets echo2 prime
