@@ -1,6 +1,7 @@
 #!/bin/sh
 
-echo "This shell script is to build the source automatically"
+echo "This shell script is to build the C source codes"
+
 cd ../C
 make clean; make
 
