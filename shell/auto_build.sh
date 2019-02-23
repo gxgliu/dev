@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo "This shell script is to build the source automatically"
-cd C
+cd ../C
 make clean; make
 
 if [ $? != 0 ]; then
