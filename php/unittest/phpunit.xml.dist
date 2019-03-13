@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<phpunit>
+	<testsuite name="UnitTest">
+		<directory>./tests/</directory>
+	</testsuite>
+</phpunit>
