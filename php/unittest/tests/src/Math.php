@@ -3,11 +3,13 @@
 namespace Math;
  
 class Math {
-    public function Add($a, $b) {
+    public function add($a, $b) {
         return $a + $b;
     }
  
-    public function Sub($a, $b) {
+    public function sub($a, $b) {
+		// bug
         return $a + $b;
     }
 }
+
