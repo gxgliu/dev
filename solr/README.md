@@ -77,8 +77,8 @@ And then check the current limits
 
 ```shell
 $ launchctl limit | grep max
-	maxproc     532            532
+	maxproc     2048           2048
 	maxfiles    65000          65000
 ```
 
-Although maxfiles has been set to 65000, maxproc has only doubled to 532.
+The maxfiles has been set to 65000 and maxproc has been set to 2048.
