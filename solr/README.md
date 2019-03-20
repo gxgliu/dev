@@ -1,4 +1,4 @@
-# How to change open files limit and max processes limit on macOS
+# How to change open files and max processes limits on macOS
 
 ## Mac OS X
 
@@ -20,7 +20,7 @@ Creating two configuration files,
 which contains the following XML configuration:
 
 1)
-```shell
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
   <plist version="1.0">
@@ -44,7 +44,7 @@ which contains the following XML configuration:
 ```
   
 2)
-```shell
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple/DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
   <plist version="1.0">
@@ -56,8 +56,8 @@ which contains the following XML configuration:
           <string>launchctl</string>
           <string>limit</string>
           <string>maxproc</string>
-          <string>65000</string>
-          <string>65000</string>
+          <string>2048</string>
+          <string>2048</string>
         </array>
       <key>RunAtLoad</key>
         <true />
