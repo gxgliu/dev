@@ -15,11 +15,11 @@ The last two columns are the soft and hard limits, respectively.
 ### Adjusting open files limit and max processes limit in Sierra
 
 Creating two configuration files,
-1) `/Library/LaunchDaemons/limit.maxfiles.plist`
-2) `/Library/LaunchDaemons/limit.maxproc.plist`
+- `/Library/LaunchDaemons/limit.maxfiles.plist`
+- `/Library/LaunchDaemons/limit.maxproc.plist`
 which contains the following XML configuration:
 
-1)
+limit.maxfiles.plist
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
@@ -42,8 +42,8 @@ which contains the following XML configuration:
     </dict>
   </plist>
 ```
-  
-2)
+
+limit.maxproc.plist
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple/DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
