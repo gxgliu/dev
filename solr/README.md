@@ -1,4 +1,4 @@
-# How to change open files and max processes limits on macOS
+# How to change open files and max processes limits
 
 ## Mac OS X
 
