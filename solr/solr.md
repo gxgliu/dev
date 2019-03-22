@@ -2,7 +2,7 @@
 ```shell
 $ brew install solr
 $ solr -version
-8.0.0
+7.7.1
 ```
 
 ## 基本概念 
@@ -16,13 +16,11 @@ $ solr -version
 - レプリカの1つはleaderに指名され、leaderはインデックスの更新を他のreplicaに伝搬する。
 
 ### Starting solr running in SolrCloud mode
--
 ```shell
 $ which solr
 /usr/local/bin/solr
 $ solr start -e cloud
 ```
-
 - Running two nodes using 8983 and 7574 ports
 - two shards
 - two replicas per shard
@@ -36,6 +34,12 @@ $ solr delete -c [collection]
 - Stoping all services
 ```shell
 $ solr stop -all
+```
+- Createing new collection 'techproducts'
+```shell
+http://localhost:8983/solr/admin/collection?
+action=CREATE&name=techproducts&numShards=2&replicationFactor=2&
+maxShardsPerNode=2&collection.configName=techproducts
 ```
 
 ## Getting contents from my blogs and saving them to local files
