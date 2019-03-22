@@ -41,6 +41,45 @@ http://localhost:8983/solr/admin/collection?
 action=CREATE&name=techproducts&numShards=2&replicationFactor=2&
 maxShardsPerNode=2&collection.configName=techproducts
 ```
+## Indexing and searching using exampledocs
+### Indexing
+At first, we can make indexes using exampledocs
+```shell
+$ cd /usr/local/Cellar/solr/7.7.1
+$ bin/post -c techproducts example/exampledocs/*
+...omitted...
+SimplePostTool version 5.0.0
+Posting files to [base] url http://localhost:8983/solr/techproducts/update...
+Entering auto mode. File endings considered are xml,json,jsonl,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
+POSTing file books.csv (text/csv) to [base]
+POSTing file books.json (application/json) to [base]/json/docs
+POSTing file gb18030-example.xml (application/xml) to [base]
+POSTing file hd.xml (application/xml) to [base]
+POSTing file ipod_other.xml (application/xml) to [base]
+POSTing file ipod_video.xml (application/xml) to [base]
+POSTing file manufacturers.xml (application/xml) to [base]
+POSTing file mem.xml (application/xml) to [base]
+POSTing file money.xml (application/xml) to [base]
+POSTing file monitor.xml (application/xml) to [base]
+POSTing file monitor2.xml (application/xml) to [base]
+POSTing file more_books.jsonl (application/json) to [base]/json/docs
+POSTing file mp500.xml (application/xml) to [base]
+POSTing file post.jar (application/octet-stream) to [base]/extract
+POSTing file sample.html (text/html) to [base]/extract
+POSTing file sd500.xml (application/xml) to [base]
+POSTing file solr-word.pdf (application/pdf) to [base]/extract
+POSTing file solr.xml (application/xml) to [base]
+POSTing file test_utf8.sh (application/octet-stream) to [base]/extract
+POSTing file utf8-example.xml (application/xml) to [base]
+POSTing file vidcard.xml (application/xml) to [base]
+21 files indexed.
+COMMITting Solr index changes to http://localhost:8983/solr/techproducts/update...
+Time spent: 0:00:43.292
+```
+The exampledocs have been indexed and we can start to search.
+
+### Searching
+
 
 ## Getting contents from my blogs and saving them to local files
 - Writing a python srcipt named getContents.py as below
