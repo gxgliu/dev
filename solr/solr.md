@@ -39,12 +39,15 @@ $ solr create -c <yourCollection> -s 2 -rf 2
 ```shell
 $ solr stop -all
 ```
-- Createing new collection 'techproducts'
+- (if you had stopped solr) Restarting node1
+```shell
+$ solr start -c -p 8983 -s example/cloud/node1/solr
 ```
-http://localhost:8983/solr/admin/collection?
-action=CREATE&name=techproducts&numShards=2&replicationFactor=2&
-maxShardsPerNode=2&collection.configName=techproducts
+- When it’s done start the second node, and tell it how to connect to to ZooKeeper:
+```shell
+$ solr start -c -p 7574 -s example/cloud/node2/solr -z localhost:9983
 ```
+
 ## Indexing and searching using exampledocs
 ### Indexing
 At first, we can make indexes using exampledocs
@@ -160,7 +163,7 @@ If we’re using curl, note that the space between terms must be converted to "+
 A term or phrase is present by prefixing it with a +; conversely, to disallow the presence of a term or phrase, prefix it with a -.
 	- To find documents that contain both terms "electronics" and "music"
 	`curl "http://localhost:8983/solr/techproducts/select?q=%2Belectronics%20%2Bmusic"`
-	(The encoding for + is %2B)
+
 	- To find documents that contain term "electronics" but don’t contain the term "music"
 	`curl "http://localhost:8983/solr/techproducts/select?q=%2Belectronics+-music"`
 
