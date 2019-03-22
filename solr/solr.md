@@ -79,6 +79,76 @@ Time spent: 0:00:43.292
 The exampledocs have been indexed and we can start to search.
 
 ### Searching
+Now we can try the following 5 types of search:
+- Basic searching
+	- Via Solr Admin UI
+	` http://localhost:8983/solr/#/techproducts/query`
+	- Via curl
+	`curl "http://localhost:8983/solr/techproducts/select?indent=on&q=*:*"`
+- Search for a Single Term
+Just like this:
+```shell
+$ curl "http://localhost:8983/solr/techproducts/select?q=foundation"
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":651,
+    "params":{
+      "q":"foundation"}},
+  "response":{"numFound":4,"start":0,"maxScore":2.6861532,"docs":[
+      {
+        "id":"0553293354",
+        "cat":["book"],
+        "name":"Foundation",
+        "price":7.99,
+        "price_c":"7.99,USD",
+        "inStock":true,
+        "author":"Isaac Asimov",
+        "author_s":"Isaac Asimov",
+        "series_t":"Foundation Novels",
+        "sequence_i":1,
+        "genre_s":"scifi",
+        "_version_":1628664318309433344,
+        "price_c____l_ns":799},
+      {
+        "id":"UTF8TEST",
+        "name":"Test with some UTF-8 encoded characters",
+	...omitted..}]
+}
+```
+As another usage, we can put "id" (without quotes) to the "fl" field so as to 
+matching return records only contain id fields.
+```shell
+$ curl "http://localhost:8983/solr/techproducts/select?q=foundation&fl=id"
+{
+  "responseHeader":{
+    "zkConnected":true,
+    "status":0,
+    "QTime":446,
+    "params":{
+      "q":"foundation",
+      "fl":"id"}},
+  "response":{"numFound":4,"start":0,"maxScore":2.6861532,"docs":[
+      {
+        "id":"0553293354"},
+      {
+        "id":"UTF8TEST"},
+      {
+        "id":"SOLR1000"},
+      {
+        "id":"/usr/local/Cellar/solr/7.7.1/example/exampledocs/test_utf8.sh"}]
+  }}
+```
+- Field Searches
+For example, we can limit the our search for only documents with the category "electronics",
+the results will be more precise for our users.
+`curl "http://localhost:8983/solr/techproducts/select?q=cat:electronics"`
+- Phrase Search
+To search for a multi-term phrase, enclose it in double quotes: q="multiple terms here". 
+If we’re using curl, note that the space between terms must be converted to "+" in a URL, as so:
+`curl "http://localhost:8983/solr/techproducts/select?q=\"CAS+latency\""`
+- Combining Searches
 
 
 ## Getting contents from my blogs and saving them to local files
