@@ -31,6 +31,10 @@ $ solr start -e cloud
 ```shell
 $ solr delete -c [collection]
 ```
+- Create a new collection
+```shell
+$ solr create -c <yourCollection> -s 2 -rf 2
+```
 - Stoping all services
 ```shell
 $ solr stop -all
@@ -160,7 +164,13 @@ A term or phrase is present by prefixing it with a +; conversely, to disallow th
 	- To find documents that contain term "electronics" but don’t contain the term "music"
 	`curl "http://localhost:8983/solr/techproducts/select?q=%2Belectronics+-music"`
 
-## Getting contents from my blogs and saving them to local files
+## Indexing and searching using contents of my blog
+- At first, let's delete collection techproducts and then create a new one
+```shell
+$ solr delete -c techproducts
+$ solr create -c gxliublog -s 2 -rf 2 -d $SOLRHOME/server/solr/configsets/sample_techprodfucts_configs/conf/
+```
+Note: If I don't use configsets of sample_techprodfucts_configs, I can't create indexes successfully, why?!
 - Writing a python srcipt named getContents.py as below
 ```shell
 import urllib.request
@@ -204,27 +214,77 @@ $ ls /tmp/solr/downloads
 1152128.html  1475006.html  1757080.html  312679.html
 1244051.html  1577126.html  1877291.html  613538.html
 ```
-## Making indexes for the contents
+### Indexing
+- Cleansing the content datas
+```shell
+$ for x in `ls`; do sed -e 's/^M//g' -e 's/EUC-JP/utf-8/g' -e 's/euc-jp/utf-8/g' $x > aaa; iconv -f euc-jp -t utf-8 aaa > $x; done
+```
+- Indexing
 ```shell
 $ which post
 /usr/local/bin/post
-$ /usr/local/bin/post -c gettingstarted /tmp/solr/documents/*
-...omitted...
+$ /usr/local/bin/post -c gxliublog /tmp/solr/documents/*
+/Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/bin/java -classpath /usr/local/Cellar/solr/7.7.1/libexec/dist/solr-core-7.7.1.jar -Dauto=yes -Dc=gxliublog -Ddata=files org.apache.solr.util.SimplePostTool ./1003197.html ./1012986.html ./1152128.html ./1244051.html ./1436671.html ./1454963.html ./1475006.html ./1577126.html ./1583854.html ./1756964.html ./1757080.html ./1877291.html ./2049060.html ./278227.html ./312679.html ./613538.html ./767863.html ./776386.html
+SimplePostTool version 5.0.0
+Posting files to [base] url http://localhost:8983/solr/gxliublog/update...
+Entering auto mode. File endings considered are xml,json,jsonl,csv,pdf,doc,docx,ppt,pptx,xls,xlsx,odt,odp,ods,ott,otp,ots,rtf,htm,html,txt,log
+POSTing file 1003197.html (text/html) to [base]/extract
+POSTing file 1012986.html (text/html) to [base]/extract
+POSTing file 1152128.html (text/html) to [base]/extract
+POSTing file 1244051.html (text/html) to [base]/extract
+POSTing file 1436671.html (text/html) to [base]/extract
+POSTing file 1454963.html (text/html) to [base]/extract
+POSTing file 1475006.html (text/html) to [base]/extract
+POSTing file 1577126.html (text/html) to [base]/extract
+POSTing file 1583854.html (text/html) to [base]/extract
+POSTing file 1756964.html (text/html) to [base]/extract
+POSTing file 1757080.html (text/html) to [base]/extract
+POSTing file 1877291.html (text/html) to [base]/extract
+POSTing file 2049060.html (text/html) to [base]/extract
+POSTing file 278227.html (text/html) to [base]/extract
+POSTing file 312679.html (text/html) to [base]/extract
+POSTing file 613538.html (text/html) to [base]/extract
+POSTing file 767863.html (text/html) to [base]/extract
+POSTing file 776386.html (text/html) to [base]/extract
+18 files indexed.
+COMMITting Solr index changes to http://localhost:8983/solr/gxliublog/update...
+Time spent: 0:00:30.977
 ```
 - So far, the preparation for searching is completed
 
-## Searching
-- Query
-`http://localhost:8983/solr/gettingstarted/select?q=*:*`
-- For example, let's search using empty query
-```json
+### Searching
+- Search for "Windows" and get id field
+```shell
+$ curl "http://localhost:8983/solr/gxliublog/select?q=Windows&fl=id"
 {
   "responseHeader":{
     "zkConnected":true,
     "status":0,
-    "QTime":235,
+    "QTime":261,
     "params":{
-      "q":"*:*"}},
-  "response":{"numFound":0,"start":0,"maxScore":0.0,"docs":[]
+      "q":"Windows",
+      "fl":"id"}},
+  "response":{"numFound":18,"start":0,"maxScore":0.17436156,"docs":[
+      {
+        "id":"/private/tmp/solr/documents/./776386.html"},
+      {
+        "id":"/private/tmp/solr/documents/./1877291.html"},
+      {
+        "id":"/private/tmp/solr/documents/./1152128.html"},
+      {
+        "id":"/private/tmp/solr/documents/./1454963.html"},
+      {
+        "id":"/private/tmp/solr/documents/./1003197.html"},
+      {
+        "id":"/private/tmp/solr/documents/./613538.html"},
+      {
+        "id":"/private/tmp/solr/documents/./1583854.html"},
+      {
+        "id":"/private/tmp/solr/documents/./767863.html"},
+      {
+        "id":"/private/tmp/solr/documents/./312679.html"},
+      {
+        "id":"/private/tmp/solr/documents/./1012986.html"}]
   }}
 ```
+
