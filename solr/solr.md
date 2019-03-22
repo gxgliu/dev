@@ -36,7 +36,7 @@ $ solr delete -c [collection]
 $ solr stop -all
 ```
 - Createing new collection 'techproducts'
-```shell
+```
 http://localhost:8983/solr/admin/collection?
 action=CREATE&name=techproducts&numShards=2&replicationFactor=2&
 maxShardsPerNode=2&collection.configName=techproducts
