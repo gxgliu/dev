@@ -117,6 +117,7 @@ $ curl "http://localhost:8983/solr/techproducts/select?q=foundation"
 	...omitted..}]
 }
 ```
+
 As another usage, we can put "id" (without quotes) to the "fl" field so as to 
 matching return records only contain id fields.
 ```shell
@@ -140,16 +141,24 @@ $ curl "http://localhost:8983/solr/techproducts/select?q=foundation&fl=id"
         "id":"/usr/local/Cellar/solr/7.7.1/example/exampledocs/test_utf8.sh"}]
   }}
 ```
+
 - Field Searches
 For example, we can limit the our search for only documents with the category "electronics",
-the results will be more precise for our users.
+the results will be more precise for us.
 `curl "http://localhost:8983/solr/techproducts/select?q=cat:electronics"`
+
 - Phrase Search
 To search for a multi-term phrase, enclose it in double quotes: q="multiple terms here". 
 If we’re using curl, note that the space between terms must be converted to "+" in a URL, as so:
 `curl "http://localhost:8983/solr/techproducts/select?q=\"CAS+latency\""`
-- Combining Searches
 
+- Combining Searches
+A term or phrase is present by prefixing it with a +; conversely, to disallow the presence of a term or phrase, prefix it with a -.
+	- To find documents that contain both terms "electronics" and "music"
+	`curl "http://localhost:8983/solr/techproducts/select?q=%2Belectronics%20%2Bmusic"`
+	(The encoding for + is %2B)
+	- To find documents that contain term "electronics" but don’t contain the term "music"
+	`curl "http://localhost:8983/solr/techproducts/select?q=%2Belectronics+-music"`
 
 ## Getting contents from my blogs and saving them to local files
 - Writing a python srcipt named getContents.py as below
