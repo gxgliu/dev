@@ -8,3 +8,5 @@
 - Kafka
   - [Apache Kafkaの概要とアーキテクチャ](https://qiita.com/sigmalist/items/5a26ab519cbdf1e07af3)
   - [Apache Kafkaを試してみる](https://qiita.com/kiura30/items/df036b927c26f58122e8)
+- wget
+  - [wgetでこういう時はこうする!!](https://qiita.com/hirohiro77/items/b774908436ec032df719)
